@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackjack Buddy Reverse Martingale</title>
+    <script
+      src="{{ url_for('static', filename='js/gambleBuddy.js') }}"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+    <style>
+      :root {
+        /* Base colors */
+        --bg: #0c1117;
+        --panel: #141a22;
+        --text: #eef2f8;
+        --muted: #a6b0be;
+        --radius: 16px;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+
+        background: radial-gradient(
+          circle at 50% 20%,
+          #141a22 0%,
+          var(--bg) 80%
+        );
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+      }
+
+      .phone {
+        width: 100%;
+        max-width: 430px;
+
+        margin: 0 auto;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+
+      header {
+        margin: 0;
+        padding-top: 32px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: clamp(32px, 7vw, 48px);
+        letter-spacing: 0.04em;
+        color: #eb13eb;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      header h2 {
+        color: #b9e3b5;
+      }
+      .rounded-btn {
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        background-color: #2e7d32;
+        color: white;
+        margin: 10px;
+      }
+      .rounded-btn-time {
+        padding: 8px 16px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        background-color: #686968;
+        color: white;
+        margin: 8px;
+      }
+
+      .rounded-btn-budget {
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        background-color: #045204;
+        color: white;
+        margin: 3px;
+      }
+
+      .rounded-btn:hover {
+        background-color: #256428;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <header><h1>Blackjack Reverse Martingale!</h1></header>
+
+      <h2>Enter your starting bet amount per hand:</h2>
+
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Enter whole dollar amount"
+      />
+
+      <button onclick="variableInput()">Submit</button>
+
+      <p>*Note that you return to this amount after every win.*</p>
+
+      <p id="betValue"></p>
+
+      <script>
+        function variableInput() {
+          let origBet = document.getElementById("userInput").value;
+
+          let bet = Number(origBet);
+
+          document.getElementById("betValue").innerHTML =
+            "Example bet amounts:<br><br>Initial Bet:" +
+            bet +
+            "<br><br>Bet After One Win: " +
+            bet * 2 +
+            "<br><br>Bet After Two Wins: " +
+            bet * 4 +
+            "<br><br>Bet After Three Wins: " +
+            bet * 8 +
+            "<br><br>Bet After Four Wins: " +
+            bet * 16 +
+            "<br><br>Bet After Five Wins: " +
+            bet * 32 +
+            "<br><br>Bet After Six Wins: " +
+            bet * 64 +
+            "<br><br>Bet After Seven Wins: " +
+            bet * 128 +
+            "<br><br>Bet After Eight Wins: " +
+            bet * 256 +
+            "<br><br>Bet After Nine Wins: " +
+            bet * 512 +
+            "<br><br>Bet After Ten Wins: " +
+            bet * 1024;
+        }
+      </script>
+
+      <style>
+        :root {
+          --accent: #eb13eb;
+        }
+      </style>
+
+      <div class="nav">
+        <a href="/blackjack">Back</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
+</html>

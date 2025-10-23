@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roulette Buddy Martingale</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+  </head>
+
+  <style>
+    :root {
+      /* Base colors */
+      --bg: #0c1117;
+      --panel: #141a22;
+      --text: #eef2f8;
+      --muted: #a6b0be;
+      --radius: 16px;
+    }
+    html,
+    body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family:
+        ui-sans-serif,
+        system-ui,
+        Segoe UI,
+        Roboto,
+        Arial;
+
+      background: radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+
+      margin: 0 auto;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    header {
+      margin: 0;
+      padding-top: 32px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(32px, 7vw, 48px);
+      letter-spacing: 0.08em;
+      color: #fc6666;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    header h2 {
+      color: #fc6666;
+    }
+    .rounded-btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #fc2020;
+      color: white;
+      margin: 10px;
+    }
+
+    .rounded-btn:hover {
+      background-color: #cf1919;
+    }
+  </style>
+  <body>
+    <div class="phone">
+      <header><h1>Roulette Martingale!</h1></header>
+
+      <header><h2>Enter your starting total bet amount per spin:</h2></header>
+
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Enter whole dollar amount"
+      />
+
+      <button onclick="variableInput()" , class="rounded-btn">Submit</button>
+
+      <p>*Note that you return to this amount after every win.*</p>
+
+      <p id="betValue"></p>
+
+      <script>
+        function variableInput() {
+          let origBet = document.getElementById("userInput").value;
+
+          let bet = Number(origBet);
+
+          document.getElementById("betValue").innerHTML =
+            "Example bet amounts:<br><br>Initial Bet:" +
+            bet +
+            "<br><br>Bet After One Loss: " +
+            bet * 2 +
+            "<br><br>Bet After Two Losses: " +
+            bet * 4 +
+            "<br><br>Bet After Three Losses: " +
+            bet * 8 +
+            "<br><br>Bet After Four Losses: " +
+            bet * 16 +
+            "<br><br>Bet After Five Losses: " +
+            bet * 32 +
+            "<br><br>Bet After Six Losses: " +
+            bet * 64 +
+            "<br><br>Bet After Seven Losses: " +
+            bet * 128 +
+            "<br><br>Bet After Eight Losses: " +
+            bet * 256 +
+            "<br><br>Bet After Nine Losses: " +
+            bet * 512 +
+            "<br><br>Bet After Ten Losses: " +
+            bet * 1024;
+        }
+      </script>
+
+      <p>
+        *It is recommended to never bet outside of your budget. This means you
+        should stop playing if you cannot afford the bet following the next
+        loss.*
+      </p>
+
+      <style>
+        :root {
+          --accent: #fc6666;
+        }
+      </style>
+
+      <div class="nav">
+        <a href="/roulette">Back</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
+</html>

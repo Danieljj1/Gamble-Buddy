@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="{{ url_for('static', filename='js/gambleBuddy.js') }}"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+    <title>Slot Buddy LV</title>
+  </head>
+  <style>
+    :root {
+      /* Base colors */
+      --bg: #0c1117;
+      --panel: #141a22;
+      --text: #eef2f8;
+      --muted: #a6b0be;
+      --radius: 16px;
+    }
+    html,
+    body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family:
+        ui-sans-serif,
+        system-ui,
+        Segoe UI,
+        Roboto,
+        Arial;
+
+      background: radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+
+      margin: 0 auto;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    header {
+      margin: 0;
+      padding-top: 32px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(32px, 7vw, 48px);
+      letter-spacing: 0.08em;
+      color: #f7ce04;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    header h2 {
+      color: #f7ce04;
+    }
+    .rounded-btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #f7ce04;
+      color: white;
+      margin: 10px;
+    }
+    .rounded-btn:hover {
+      background-color: #d7b404;
+    }
+  </style>
+  <body>
+    <div class="phone">
+      <header><h1>Low Volatility Slots!</h1></header>
+
+      <header><h2>Time frame</h2></header>
+
+      <label for="hours">Hours to Play:</label>
+      <input type="number" id="hours" placeholder="Enter hours" /><br /><br />
+
+      <label for="bet">Bet Per Spin ($):</label>
+      <input type="number" id="bet" placeholder="Enter bet" /><br /><br />
+
+      <button onclick="calculateLVBudget()" , class="rounded-btn">
+        Calculate Required Budget
+      </button>
+
+      <header><h2>Required Budget</h2></header>
+      <p id="lowVol"></p>
+
+      <style>
+        :root {
+          --accent: #f7ce04;
+        }
+      </style>
+
+      <div class="nav">
+        <a href="/slots">Back</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
+</html>

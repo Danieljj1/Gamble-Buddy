@@ -1,0 +1,77 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #5a5a5a;
+  text-align: center;
+  padding: 50px;
+}
+
+.bj-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #ffffff;
+  color: black;
+  text-decoration: none;
+  border-radius: 50px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.bj-btn:hover {
+  transform: scale(1.1);
+}
+
+.slot-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #ffffff;
+  color: black;
+  text-decoration: none;
+  border-radius: 50px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.slot-btn:hover {
+  transform: scale(1.1);
+}
+
+.rlt-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #ffffff;
+  color: black;
+  text-decoration: none;
+  border-radius: 50px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.rlt-btn:hover {
+  transform: scale(1.1);
+}
+
+.rounded-btn {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  background-color: #2e7d32;
+  color: white;
+  margin: 10px;
+}
+
+.rounded-btn:hover {
+  background-color: #256428;
+}
+
+.slot-icon {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roulette Buddy Flat</title>
+    <script
+      src="{{ url_for('static', filename='js/gambleBuddy.js') }}"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+  </head>
+  <style>
+    :root {
+      /* Base colors */
+      --bg: #0c1117;
+      --panel: #141a22;
+      --text: #eef2f8;
+      --muted: #a6b0be;
+      --radius: 16px;
+    }
+    html,
+    body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family:
+        ui-sans-serif,
+        system-ui,
+        Segoe UI,
+        Roboto,
+        Arial;
+
+      background: radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+
+      margin: 0 auto;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    header {
+      margin: 0;
+      padding-top: 32px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(32px, 7vw, 48px);
+      letter-spacing: 0.08em;
+      color: #fc6666;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    header h2 {
+      color: #fc6666;
+    }
+    .rounded-btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #fc2020;
+      color: white;
+      margin: 10px;
+    }
+    .rounded-btn-time {
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #686968;
+      color: white;
+      margin: 8px;
+    }
+
+    .rounded-btn-budget {
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #cf1919;
+      color: white;
+      margin: 3px;
+    }
+    .rounded-btn:hover {
+      background-color: #cf1919;
+    }
+  </style>
+  <body>
+    <div class="phone">
+      <header><h1>Flat Bet Roulette!</h1></header>
+
+      <p id="flatBetResult">Flat Bet: $0</p>
+
+      <header><h2>Select Your Budget</h2></header>
+      <button id="budget100" , class="rounded-btn-budget">$100</button>
+      <button id="budget200" , class="rounded-btn-budget">$200</button>
+      <button id="budget300" , class="rounded-btn-budget">$300</button>
+      <button id="budget400" , class="rounded-btn-budget">$400</button>
+      <button id="budget500" , class="rounded-btn-budget">$500</button>
+      <button id="budget600" , class="rounded-btn-budget">$600</button>
+      <button id="budget700" , class="rounded-btn-budget">$700</button>
+      <button id="budget800" , class="rounded-btn-budget">$800</button>
+      <button id="budget900" , class="rounded-btn-budget">$900</button>
+      <button id="budget1000" , class="rounded-btn-budget">$1000</button>
+
+      <header><h2>Time frame</h2></header>
+
+      <button id="15min" , class="rounded-btn-time">15 mins</button>
+      <button id="30min" , class="rounded-btn-time">30 mins</button>
+      <button id="45min" , class="rounded-btn-time">45 mins</button>
+      <button id="60min" , class="rounded-btn-time">60 mins</button>
+
+      <script>
+        // Saves Budget
+        function handleBudget(amount) {
+          updateBudget(amount);
+          displayFlatBet();
+        }
+
+        // Saves Hours
+        function handleHour(hours) {
+          updateHour(hours);
+          displayFlatBet();
+        }
+
+        function displayFlatBet() {
+          const rate = rlRate();
+          document.getElementById("flatBetResult").innerText =
+            `Flat Bet: $${rate.toFixed(2)}`;
+        }
+
+        // Event listeners for js
+        document.addEventListener("DOMContentLoaded", () => {
+          // Budget buttons
+          document
+            .getElementById("budget100")
+            .addEventListener("click", () => handleBudget(100));
+          document
+            .getElementById("budget200")
+            .addEventListener("click", () => handleBudget(200));
+          document
+            .getElementById("budget300")
+            .addEventListener("click", () => handleBudget(300));
+          document
+            .getElementById("budget400")
+            .addEventListener("click", () => handleBudget(400));
+          document
+            .getElementById("budget500")
+            .addEventListener("click", () => handleBudget(500));
+          document
+            .getElementById("budget600")
+            .addEventListener("click", () => handleBudget(600));
+          document
+            .getElementById("budget700")
+            .addEventListener("click", () => handleBudget(700));
+          document
+            .getElementById("budget800")
+            .addEventListener("click", () => handleBudget(800));
+          document
+            .getElementById("budget900")
+            .addEventListener("click", () => handleBudget(900));
+          document
+            .getElementById("budget1000")
+            .addEventListener("click", () => handleBudget(1000));
+
+          // Hour buttons
+          document
+            .getElementById("15min")
+            .addEventListener("click", () => handleHour(0.25));
+          document
+            .getElementById("30min")
+            .addEventListener("click", () => handleHour(0.5));
+          document
+            .getElementById("45min")
+            .addEventListener("click", () => handleHour(0.75));
+          document
+            .getElementById("60min")
+            .addEventListener("click", () => handleHour(1));
+
+          // Initial display
+          displayFlatBet();
+        });
+      </script>
+
+      <style>
+        :root {
+          --accent: #fc6666;
+        }
+      </style>
+
+      <div class="nav">
+        <a href="/roulette">Back</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
+</html>

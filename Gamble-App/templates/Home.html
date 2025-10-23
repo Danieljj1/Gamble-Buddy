@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Casino Buddy</title>
+    <style>
+      :root {
+        /* Base colours */
+        --bg: #0c1117;
+        --panel: #141a22;
+        --text: #eef2f8;
+        --muted: #a6b0be;
+        --radius: 16px;
+        /* Custom palette for casino buddy cards */
+        --header-color: #b9e3b5;
+        /* Blackjack */
+        --bj-bg: #033e2e;
+        --bj-icon-bg: #0b553b;
+        --bj-text: #b3e7c9;
+        --bj-icon: #f5d87a;
+        /* Roulette */
+        --ro-bg: #3a0e13;
+        --ro-icon-bg: #58231f;
+        --ro-text: #dba59f;
+        --ro-icon: #e2b587;
+        /* Slots */
+        --sl-bg: #1f093e;
+        --sl-icon-bg: #35115f;
+        --sl-text: #f5d87a;
+        --sl-icon: #f5d87a;
+        /* Title text colour (legacy) */
+        --title: #dfe9f5;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+        /* Use a subtle radial gradient to break up the large expanse of solid color */
+        background: radial-gradient(
+          circle at 50% 20%,
+          #141a22 0%,
+          var(--bg) 80%
+        );
+        color: var(--text);
+        /* Center the phone container horizontally but let it align to the top vertically */
+        display: flex;
+        justify-content: center;
+      }
+      /* Restrict the phone container so the layout always looks like a mobile app
+     on both small and large screens.  The width is capped and the full height
+     of the viewport is used so the header sticks to the top as expected. */
+      .phone {
+        width: 100%;
+        max-width: 430px;
+        /* Let the height be dictated by content; removing the full-viewport height
+       prevents a large empty area from appearing below the game tiles. */
+        margin: 0 auto;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+      /* Header styling: large headline with a light pastel green */
+      header {
+        margin: 0;
+        padding-top: 32px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: clamp(32px, 7vw, 48px);
+        letter-spacing: 0.08em;
+        color: var(--header-color);
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      /* Menu container that stacks cards vertically */
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 48px;
+      }
+
+      /* Generic card styling */
+      .card {
+        display: flex;
+        align-items: center;
+        padding: 24px 28px;
+        border-radius: 24px;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        transition: transform 0.2s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+      }
+      .icon-container {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        margin-right: 24px;
+      }
+      .card-title {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      /* Colour-coded styles for each game */
+      .blackjack-card {
+        background: var(--bj-bg);
+      }
+      .blackjack-card .icon-container {
+        background: var(--bj-icon-bg);
+      }
+      .blackjack-card .card-title {
+        color: var(--bj-text);
+      }
+      .blackjack-card svg {
+        fill: var(--bj-icon);
+        width: 40px;
+        height: 40px;
+      }
+
+      .roulette-card {
+        background: var(--ro-bg);
+      }
+      .roulette-card .icon-container {
+        background: var(--ro-icon-bg);
+      }
+      .roulette-card .card-title {
+        color: var(--ro-text);
+      }
+      .roulette-card svg {
+        /* note: colours are specified inline within the SVG for the roulette icon */
+        width: 40px;
+        height: 40px;
+      }
+
+      .slots-card {
+        background: var(--sl-bg);
+      }
+      .slots-card .icon-container {
+        background: var(--sl-icon-bg);
+      }
+      .slots-card .card-title {
+        color: var(--sl-text);
+      }
+      /* set fill and color so stroke uses the same colour */
+      .slots-card svg {
+        fill: var(--sl-icon);
+        width: 40px;
+        height: 40px;
+        color: var(--sl-icon);
+      }
+
+      .slots-card .icon-container img {
+        width: 40px; /* same as SVGs */
+        height: 40px; /* maintain balance */
+        object-fit: contain; /* keeps proportions inside the box */
+        display: block;
+      }
+      .roulette-card .icon-container img {
+        width: 40px; /* same as SVGs */
+        height: 40px; /* maintain balance */
+        object-fit: contain; /* keeps proportions inside the box */
+        display: block;
+      }
+      .blackjack-card .icon-container img {
+        width: 40px; /* same as SVGs */
+        height: 40px; /* maintain balance */
+        object-fit: contain; /* keeps proportions inside the box */
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <header><h1>CASINO BUDDY</h1></header>
+
+      <div class="menu" aria-label="Game shortcuts">
+        <!-- Blackjack Card -->
+        <a
+          class="card blackjack-card"
+          href="/blackjack"
+          aria-label="Open Blackjack"
+        >
+          <div class="icon-container">
+            <img
+              src="{{ url_for('static', filename='images/BJ-Icon.png') }}"
+              alt="Blackjack icon"
+              title="Slots"
+            />
+          </div>
+          <div class="card-title">Blackjack</div>
+        </a>
+
+        <!-- Roulette Card -->
+        <a
+          class="card roulette-card"
+          href="/roulette"
+          aria-label="Open Roulette"
+        >
+          <div class="icon-container">
+            <img
+              src="{{ url_for('static', filename='images/Roulette-Icon.png') }}"
+              alt="Roulette icon"
+              title="Slots"
+            />
+          </div>
+          <div class="card-title">Roulette</div>
+        </a>
+
+        <!-- Slots Card -->
+        <a class="card slots-card" href="/slots" aria-label="Open Slots">
+          <div class="icon-container">
+            <img
+              src="{{ url_for('static', filename='images/Slot-Icon.png') }}"
+              alt="Slot icon"
+              title="Slots"
+            />
+          </div>
+          <div class="card-title">Slots</div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

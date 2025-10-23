@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackjack Buddy</title>
+    <script
+      src="{{ url_for('static', filename='js/gambleBuddy.js') }}"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+    <style>
+      :root {
+        /* Base colors */
+        --bg: #0c1117;
+        --panel: #141a22;
+        --text: #eef2f8;
+        --muted: #a6b0be;
+        --radius: 16px;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+
+        background: radial-gradient(
+          circle at 50% 20%,
+          #141a22 0%,
+          var(--bg) 80%
+        );
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+      }
+
+      .phone {
+        width: 100%;
+        max-width: 430px;
+
+        margin: 0 auto;
+        padding: 16px;
+        box-sizing: border-box;
+      }
+
+      header {
+        margin: 0;
+        padding-top: 32px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: clamp(32px, 7vw, 48px);
+        letter-spacing: 0.08em;
+        color: #b9e3b5;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      header h2 {
+        color: #b9e3b5;
+      }
+      .rounded-btn {
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        background-color: #2e7d32;
+        color: white;
+        margin: 10px;
+      }
+
+      .rounded-btn:hover {
+        background-color: #256428;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <header><h1>Blackjack Buddy</h1></header>
+
+      <header><h2>Strategies</h2></header>
+
+      <a href="/blackjack-martingale"
+        ><button class="rounded-btn">Martingale</button></a
+      >
+      <p>
+        After every loss, double your bet. When you win, you recoup your losses
+        while also making the profit of your original bet. (Recommended for
+        larger budgets)
+      </p>
+
+      <a href="/blackjack-reverse-martingale"
+        ><button class="rounded-btn">Reverse Martingale</button></a
+      >
+      <p>
+        After every win, double your bet. Rides hot streaks. (Safer than
+        Martingale)
+      </p>
+
+      <a href="/blackjack-flat"
+        ><button class="rounded-btn">Flat Bet</button></a
+      >
+      <p>
+        Consistently bet the same amount throughout the entire seeion. Safest
+        option.(Best for budget control)
+      </p>
+
+      <style>
+        :root {
+          --accent: #b9e3b5;
+        }
+      </style>
+
+      <div class="nav">
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
+</html>
