@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: gamble-buddy
+    env: python
+    buildCommand: pip install -r Gamble-App/requirements.txt
+    startCommand: cd Gamble-App && gunicorn app:app --bind 0.0.0.0:$PORT
