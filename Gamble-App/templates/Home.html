@@ -4,325 +4,145 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Casino Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
     <style>
-      :root {
-        /* Base colours */
-        --bg: #0c1117;
-        --panel: #141a22;
-        --text: #eef2f8;
-        --muted: #a6b0be;
-        --radius: 16px;
-        /* Custom palette for casino buddy cards */
-        --header-color: #b9e3b5;
-        /* Blackjack */
-        --bj-bg: #033e2e;
-        --bj-icon-bg: #0b553b;
-        --bj-text: #b3e7c9;
-        --bj-icon: #f5d87a;
-        /* Roulette */
-        --ro-bg: #3a0e13;
-        --ro-icon-bg: #58231f;
-        --ro-text: #dba59f;
-        --ro-icon: #e2b587;
-        /* Slots */
-        --sl-bg: #1f093e;
-        --sl-icon-bg: #35115f;
-        --sl-text: #f5d87a;
-        --sl-icon: #f5d87a;
-        /* Coach */
-        --coach-bg: #0d1a2e;
-        --coach-border: #7c3aed;
-        --coach-text: #a78bfa;
-        --coach-icon-bg: #1e0a4e;
-        /* Title text colour (legacy) */
-        --title: #dfe9f5;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        font-family:
-          ui-sans-serif,
-          system-ui,
-          Segoe UI,
-          Roboto,
-          Arial;
-        /* Use a subtle radial gradient to break up the large expanse of solid color */
-        background: radial-gradient(
-          circle at 50% 20%,
-          #141a22 0%,
-          var(--bg) 80%
-        );
-        color: var(--text);
-        /* Center the phone container horizontally but let it align to the top vertically */
-        display: flex;
-        justify-content: center;
-      }
-      /* Restrict the phone container so the layout always looks like a mobile app
-     on both small and large screens.  The width is capped and the full height
-     of the viewport is used so the header sticks to the top as expected. */
-      .phone {
-        width: 100%;
-        max-width: 430px;
-        /* Let the height be dictated by content; removing the full-viewport height
-       prevents a large empty area from appearing below the game tiles. */
-        margin: 0 auto;
-        padding: 16px;
-        box-sizing: border-box;
-      }
-      /* Header styling: large headline with a light pastel green */
-      header {
-        margin: 0;
-        padding-top: 32px;
-        text-align: center;
-      }
-      header h1 {
-        margin: 0;
-        font-size: clamp(32px, 7vw, 48px);
-        letter-spacing: 0.08em;
-        color: var(--header-color);
-        font-weight: 800;
-        text-transform: uppercase;
-      }
+      :root { --accent: #C9A84C; }
 
-      /* Featured coach banner */
-      .coach-banner {
+      /* Coach featured card */
+      .coach-card {
         display: flex;
         align-items: center;
-        padding: 20px 24px;
-        border-radius: 20px;
+        gap: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border-gold);
+        border-radius: var(--radius-lg);
+        padding: 20px;
         text-decoration: none;
         margin-top: 32px;
-        background: linear-gradient(135deg, #1a0a3e 0%, #0d1a2e 100%);
-        border: 2px solid var(--coach-border);
-        box-shadow: 0 0 24px #7c3aed40, 0 4px 12px rgba(0, 0, 0, 0.5);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-bottom: 4px;
+        transition: background 0.18s ease, border-color 0.18s ease;
         position: relative;
         overflow: hidden;
       }
-      .coach-banner::before {
-        content: "FEATURED";
+
+      .coach-card::after {
+        content: 'FEATURED';
         position: absolute;
         top: 10px;
-        right: -22px;
-        background: #7c3aed;
-        color: white;
-        font-size: 9px;
+        right: -20px;
+        background: var(--gold);
+        color: #0a0d12;
+        font-size: 0.5rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         padding: 3px 28px;
         transform: rotate(45deg);
         transform-origin: center;
       }
-      .coach-banner:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0 36px #7c3aed60, 0 8px 20px rgba(0, 0, 0, 0.6);
+
+      .coach-card:hover {
+        background: var(--surface-raised);
+        border-color: var(--gold);
       }
-      .coach-icon-container {
-        width: 64px;
-        height: 64px;
+
+      .coach-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: rgba(201, 168, 76, 0.12);
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 16px;
-        background: var(--coach-icon-bg);
-        margin-right: 20px;
         flex-shrink: 0;
-        font-size: 32px;
+        font-size: 24px;
       }
-      .coach-text .coach-title {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 0.04em;
+
+      .coach-body { flex: 1; }
+
+      .coach-title {
+        display: block;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
-        color: var(--coach-text);
-        line-height: 1.1;
+        color: var(--gold-light);
       }
-      .coach-text .coach-sub {
-        font-size: 12px;
-        color: #a6b0be;
-        margin-top: 4px;
+
+      .coach-sub {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--muted);
+        margin-top: 3px;
         line-height: 1.4;
       }
 
-      /* Section label */
-      .section-label {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-top: 32px;
-        margin-bottom: 12px;
-        padding-left: 4px;
+      .coach-arrow {
+        font-size: 1rem;
+        color: var(--subtle);
+        transition: color 0.18s ease;
       }
 
-      /* Menu container that stacks cards vertically */
-      .menu {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      /* Generic card styling */
-      .card {
-        display: flex;
-        align-items: center;
-        padding: 24px 28px;
-        border-radius: 24px;
-        text-decoration: none;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-        transition: transform 0.2s ease;
-      }
-      .card:hover {
-        transform: translateY(-4px);
-      }
-      .icon-container {
-        width: 64px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        margin-right: 24px;
-      }
-      .card-title {
-        font-size: 28px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-
-      /* Colour-coded styles for each game */
-      .blackjack-card {
-        background: var(--bj-bg);
-      }
-      .blackjack-card .icon-container {
-        background: var(--bj-icon-bg);
-      }
-      .blackjack-card .card-title {
-        color: var(--bj-text);
-      }
-      .blackjack-card svg {
-        fill: var(--bj-icon);
-        width: 40px;
-        height: 40px;
-      }
-
-      .roulette-card {
-        background: var(--ro-bg);
-      }
-      .roulette-card .icon-container {
-        background: var(--ro-icon-bg);
-      }
-      .roulette-card .card-title {
-        color: var(--ro-text);
-      }
-      .roulette-card svg {
-        /* note: colours are specified inline within the SVG for the roulette icon */
-        width: 40px;
-        height: 40px;
-      }
-
-      .slots-card {
-        background: var(--sl-bg);
-      }
-      .slots-card .icon-container {
-        background: var(--sl-icon-bg);
-      }
-      .slots-card .card-title {
-        color: var(--sl-text);
-      }
-      /* set fill and color so stroke uses the same colour */
-      .slots-card svg {
-        fill: var(--sl-icon);
-        width: 40px;
-        height: 40px;
-        color: var(--sl-icon);
-      }
-
-      .slots-card .icon-container img {
-        width: 40px; /* same as SVGs */
-        height: 40px; /* maintain balance */
-        object-fit: contain; /* keeps proportions inside the box */
-        display: block;
-      }
-      .roulette-card .icon-container img {
-        width: 40px; /* same as SVGs */
-        height: 40px; /* maintain balance */
-        object-fit: contain; /* keeps proportions inside the box */
-        display: block;
-      }
-      .blackjack-card .icon-container img {
-        width: 40px; /* same as SVGs */
-        height: 40px; /* maintain balance */
-        object-fit: contain; /* keeps proportions inside the box */
-        display: block;
-      }
+      .coach-card:hover .coach-arrow { color: var(--gold); }
     </style>
   </head>
   <body>
     <div class="phone">
-      <header><h1>CASINO BUDDY</h1></header>
+      <div class="page-header">
+        <h1 class="page-title">Casino Buddy</h1>
+        <p class="page-subtitle">Bet smarter. Play longer.</p>
+      </div>
 
-      <!-- Bankroll Coach Featured Banner -->
-      <a class="coach-banner" href="/coach" aria-label="Open Bankroll Management Coach">
-        <div class="coach-icon-container">🏦</div>
-        <div class="coach-text">
-          <div class="coach-title">Bankroll Coach</div>
-          <div class="coach-sub">Data-driven strategy &amp; session budgeting — play smarter, not harder.</div>
+      <!-- Bankroll Coach featured card -->
+      <a class="coach-card" href="/coach" aria-label="Open Bankroll Management Coach">
+        <div class="coach-icon">&#x1F4B0;</div>
+        <div class="coach-body">
+          <span class="coach-title">Bankroll Coach</span>
+          <span class="coach-sub">Data-driven strategy &amp; session budgeting</span>
         </div>
+        <span class="coach-arrow">&#8594;</span>
       </a>
 
-      <div class="section-label">Game Strategies</div>
+      <div class="divider"></div>
 
-      <div class="menu" aria-label="Game shortcuts">
-        <!-- Blackjack Card -->
-        <a
-          class="card blackjack-card"
-          href="/blackjack"
-          aria-label="Open Blackjack"
-        >
-          <div class="icon-container">
-            <img
-              src="{{ url_for('static', filename='images/BJ-Icon.png') }}"
-              alt="Blackjack icon"
-              title="Slots"
-            />
+      <p class="section-label">Game strategies</p>
+
+      <nav class="game-list" aria-label="Game shortcuts">
+        <a class="game-card bj-card" href="/blackjack" aria-label="Open Blackjack">
+          <div class="game-card-icon">
+            <img src="{{ url_for('static', filename='images/BJ-Icon.png') }}" alt="" />
           </div>
-          <div class="card-title">Blackjack</div>
+          <div class="game-card-body">
+            <span class="game-card-name">Blackjack</span>
+            <span class="game-card-sub">Card strategy</span>
+          </div>
+          <span class="game-card-arrow">&#8594;</span>
         </a>
 
-        <!-- Roulette Card -->
-        <a
-          class="card roulette-card"
-          href="/roulette"
-          aria-label="Open Roulette"
-        >
-          <div class="icon-container">
-            <img
-              src="{{ url_for('static', filename='images/Roulette-Icon.png') }}"
-              alt="Roulette icon"
-              title="Slots"
-            />
+        <a class="game-card ro-card" href="/roulette" aria-label="Open Roulette">
+          <div class="game-card-icon">
+            <img src="{{ url_for('static', filename='images/Roulette-Icon.png') }}" alt="" />
           </div>
-          <div class="card-title">Roulette</div>
+          <div class="game-card-body">
+            <span class="game-card-name">Roulette</span>
+            <span class="game-card-sub">Wheel strategy</span>
+          </div>
+          <span class="game-card-arrow">&#8594;</span>
         </a>
 
-        <!-- Slots Card -->
-        <a class="card slots-card" href="/slots" aria-label="Open Slots">
-          <div class="icon-container">
-            <img
-              src="{{ url_for('static', filename='images/Slot-Icon.png') }}"
-              alt="Slot icon"
-              title="Slots"
-            />
+        <a class="game-card sl-card" href="/slots" aria-label="Open Slots">
+          <div class="game-card-icon">
+            <img src="{{ url_for('static', filename='images/Slot-Icon.png') }}" alt="" />
           </div>
-          <div class="card-title">Slots</div>
+          <div class="game-card-body">
+            <span class="game-card-name">Slots</span>
+            <span class="game-card-sub">Budget calculator</span>
+          </div>
+          <span class="game-card-arrow">&#8594;</span>
         </a>
-      </div>
+      </nav>
+
+      <p class="app-tagline">Gamble responsibly &bull; 18+</p>
     </div>
   </body>
 </html>

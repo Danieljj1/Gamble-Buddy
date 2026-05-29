@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
+/* ── Tokens ──────────────────────────────────────────── */
+:root {
+  --bg:             #0a0d12;
+  --surface:        #111620;
+  --surface-raised: #181f2c;
+  --border:         rgba(255, 255, 255, 0.07);
+  --border-gold:    rgba(201, 168, 76, 0.22);
+  --text:           #eef2f8;
+  --muted:          #7a8499;
+  --subtle:         #3a4255;
+  --gold:           #C9A84C;
+  --gold-light:     #E8C97A;
+  --green:          #3CB872;
+  --red:            #D94545;
+  --radius-sm:      8px;
+  --radius:         14px;
+  --radius-lg:      20px;
+  --accent:         #C9A84C; /* overridden per page */
+}
+
+/* ── Reset ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: 'Syne', ui-sans-serif, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* ── Phone shell ─────────────────────────────────────── */
+.phone {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 20px 20px 56px;
+}
+
+/* ── Page header ─────────────────────────────────────── */
+.page-header {
+  padding-top: 44px;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: clamp(26px, 8vw, 40px);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.05;
+}
+
+.page-subtitle {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ── Divider ─────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+/* ── Section label ───────────────────────────────────── */
+.section-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* ── Home – game cards ───────────────────────────────── */
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.game-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  background: var(--surface-raised);
+}
+
+.game-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.game-card-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.game-card-body { flex: 1; }
+
+.game-card-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.game-card-sub {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.game-card-arrow {
+  font-size: 1rem;
+  color: var(--subtle);
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.game-card:hover .game-card-arrow {
+  color: var(--muted);
+  transform: translateX(2px);
+}
+
+/* Per-game left accent border */
+.bj-card   { border-left: 3px solid var(--green); }
+.ro-card   { border-left: 3px solid var(--red); }
+.sl-card   { border-left: 3px solid var(--gold); }
+
+.bj-card .game-card-icon { background: rgba(59, 184, 114, 0.1); }
+.ro-card .game-card-icon { background: rgba(217, 69, 69, 0.1); }
+.sl-card .game-card-icon { background: rgba(201, 168, 76, 0.1); }
+
+/* ── Strategy cards (hub pages) ──────────────────────── */
+.strategy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.strategy-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px 14px;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.strategy-card:hover {
+  background: var(--surface-raised);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.strategy-card:hover::before { opacity: 1; }
+
+.strategy-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.strategy-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.risk-badge {
+  flex-shrink: 0;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+.risk-high { background: rgba(217,69,69,0.1);   color: #D94545; border: 1px solid rgba(217,69,69,0.2); }
+.risk-med  { background: rgba(201,168,76,0.1);  color: #C9A84C; border: 1px solid rgba(201,168,76,0.2); }
+.risk-low  { background: rgba(59,184,114,0.1);  color: #3CB872; border: 1px solid rgba(59,184,114,0.2); }
+
+.strategy-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.strategy-cta {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.strategy-card:hover .strategy-cta { opacity: 1; }
+
+/* ── Input group ─────────────────────────────────────── */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.input-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input-field {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  padding: 12px 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s ease;
+  -webkit-appearance: none;
+}
+
+.input-field:focus { border-color: var(--accent); }
+.input-field::placeholder { color: var(--subtle); }
+
+/* Remove number input spinners */
+.input-field[type="number"]::-webkit-inner-spin-button,
+.input-field[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.input-field[type="number"] { -moz-appearance: textfield; }
+
+/* ── Primary button ──────────────────────────────────── */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--accent);
+  color: #0a0d12;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px 24px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  margin-top: 4px;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+/* ── Pill selectors (flat bet pages) ─────────────────── */
+.pill-section { margin-bottom: 20px; }
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pill-btn:hover,
+.pill-btn.active {
+  background: var(--surface-raised);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Result card ─────────────────────────────────────── */
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.result-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.result-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+/* ── Bet table (martingale output) ───────────────────── */
+.bet-table-wrap {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.bet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.bet-table th {
+  text-align: left;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.bet-table th:last-child { text-align: right; }
+
+.bet-table td {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.bet-table td:last-child {
+  color: var(--accent);
+  font-weight: 700;
+  text-align: right;
+}
+
+.bet-table tr:last-child td { border-bottom: none; }
+
+.bet-table tbody tr:nth-child(even) td {
+  background: rgba(255,255,255,0.015);
+}
+
+/* ── Info note ───────────────────────────────────────── */
+.info-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 16px 0;
+  opacity: 0.85;
+}
+
+/* ── App tagline (Home) ──────────────────────────────── */
+.app-tagline {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  text-align: center;
+  margin-top: 12px;
+}

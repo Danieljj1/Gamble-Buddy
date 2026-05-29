@@ -3,108 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="{{ url_for('static', filename='js/gambleBuddy.js') }}"
-      defer
-    ></script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/nav.css') }}"
-    />
-    <title>Slot Buddy LV</title>
+    <title>Low Volatility Slots</title>
+    <script src="{{ url_for('static', filename='js/gambleBuddy.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}" />
+    <style>
+      :root { --accent: #C9A84C; }
+    </style>
   </head>
-  <style>
-    :root {
-      /* Base colors */
-      --bg: #0c1117;
-      --panel: #141a22;
-      --text: #eef2f8;
-      --muted: #a6b0be;
-      --radius: 16px;
-    }
-    html,
-    body {
-      height: 100%;
-    }
-    body {
-      margin: 0;
-      font-family:
-        ui-sans-serif,
-        system-ui,
-        Segoe UI,
-        Roboto,
-        Arial;
-
-      background: radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-    }
-
-    .phone {
-      width: 100%;
-      max-width: 430px;
-
-      margin: 0 auto;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-
-    header {
-      margin: 0;
-      padding-top: 32px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: clamp(32px, 7vw, 48px);
-      letter-spacing: 0.08em;
-      color: #f7ce04;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-    header h2 {
-      color: #f7ce04;
-    }
-    .rounded-btn {
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      background-color: #f7ce04;
-      color: white;
-      margin: 10px;
-    }
-    .rounded-btn:hover {
-      background-color: #d7b404;
-    }
-  </style>
   <body>
     <div class="phone">
-      <header><h1>Low Volatility Slots!</h1></header>
+      <div class="page-header">
+        <h1 class="page-title">Low Volatility</h1>
+        <p class="page-subtitle">Slots &bull; Budget Calculator</p>
+      </div>
 
-      <header><h2>Time frame</h2></header>
+      <div class="divider"></div>
 
-      <label for="hours">Hours to Play:</label>
-      <input type="number" id="hours" placeholder="Enter hours" /><br /><br />
+      <div class="input-group">
+        <label class="input-label" for="hours">Hours to play</label>
+        <input class="input-field" type="number" id="hours" placeholder="e.g. 2" />
+      </div>
 
-      <label for="bet">Bet Per Spin ($):</label>
-      <input type="number" id="bet" placeholder="Enter bet" /><br /><br />
+      <div class="input-group">
+        <label class="input-label" for="bet">Bet per spin ($)</label>
+        <input class="input-field" type="number" id="bet" placeholder="e.g. 0.50" />
+      </div>
 
-      <button onclick="calculateLVBudget()" , class="rounded-btn">
-        Calculate Required Budget
-      </button>
+      <button class="btn-primary" onclick="calculateLVBudget()">Calculate Budget</button>
 
-      <header><h2>Required Budget</h2></header>
-      <p id="lowVol"></p>
+      <div class="info-note">
+        Low volatility slots average ~600 spins per hour with frequent smaller payouts.
+      </div>
 
-      <style>
-        :root {
-          --accent: #f7ce04;
+      <div class="result-card" id="result-wrap" style="display:none">
+        <p class="result-label">Required budget</p>
+        <p class="result-value" id="lowVol"></p>
+      </div>
+
+      <script>
+        function calculateLVBudget() {
+          const hrs = Number(document.getElementById('hours').value);
+          const bet = Number(document.getElementById('bet').value);
+          if (!hrs || !bet) return;
+          const budget = hrs * 600 * bet;
+          document.getElementById('lowVol').textContent = '$' + budget.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          document.getElementById('result-wrap').style.display = '';
         }
-      </style>
+      </script>
 
       <div class="nav">
         <a href="/slots">Back</a>

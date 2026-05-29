@@ -4,115 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roulette Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}" />
+    <style>
+      :root { --accent: #D94545; }
+    </style>
   </head>
-  <style>
-    :root {
-      /* Base colors */
-      --bg: #0c1117;
-      --panel: #141a22;
-      --text: #eef2f8;
-      --muted: #a6b0be;
-      --radius: 16px;
-    }
-    html,
-    body {
-      height: 100%;
-    }
-    body {
-      margin: 0;
-      font-family:
-        ui-sans-serif,
-        system-ui,
-        Segoe UI,
-        Roboto,
-        Arial;
-
-      background: radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-    }
-
-    .phone {
-      width: 100%;
-      max-width: 430px;
-
-      margin: 0 auto;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-
-    header {
-      margin: 0;
-      padding-top: 32px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: clamp(32px, 7vw, 48px);
-      letter-spacing: 0.08em;
-      color: #fc6666;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-    header h2 {
-      color: #fc6666;
-    }
-    .rounded-btn {
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      background-color: #fc2020;
-      color: white;
-      margin: 10px;
-    }
-
-    .rounded-btn:hover {
-      background-color: #cf1919;
-    }
-    :root {
-      --accent: #fc6666;
-    }
-  </style>
   <body>
     <div class="phone">
-      <header><h1>Roulette!</h1></header>
+      <div class="page-header">
+        <h1 class="page-title">Roulette</h1>
+        <p class="page-subtitle">Select a strategy</p>
+      </div>
 
-      <header><h2>Strategies</h2></header>
+      <div class="divider"></div>
 
-      <a href="/roulette-martingale"
-        ><button class="rounded-btn">Martingale</button></a
-      >
+      <div class="strategy-list">
+        <a href="/roulette-martingale" class="strategy-card">
+          <div class="strategy-header">
+            <span class="strategy-name">Martingale</span>
+            <span class="risk-badge risk-high">High Risk</span>
+          </div>
+          <p class="strategy-desc">Double your bet after every loss. One win recoups all losses plus your original stake. Recommended for larger bankrolls.</p>
+          <span class="strategy-cta">Use Strategy &#8594;</span>
+        </a>
 
-      <p>
-        After every loss, you double your bet. When you do win, you recoup your
-        losses while also making the profit of your original bet. (Recommended
-        for larger budgets)
-      </p>
+        <a href="/roulette-reverse-martingale" class="strategy-card">
+          <div class="strategy-header">
+            <span class="strategy-name">Reverse Martingale</span>
+            <span class="risk-badge risk-med">Medium Risk</span>
+          </div>
+          <p class="strategy-desc">Double your bet after every win. Capitalises on winning streaks while limiting downside exposure. Safer than standard Martingale.</p>
+          <span class="strategy-cta">Use Strategy &#8594;</span>
+        </a>
 
-      <a href="/roulette-reverse-martingale"
-        ><button class="rounded-btn">Reverse Martingale</button></a
-      >
-
-      <p>
-        After every win, double your bet. Rides hot streaks. (Safer than
-        Martingale)
-      </p>
-
-      <a href="/roulette-flat"><button class="rounded-btn">Flat Bet</button></a>
-
-      <p>
-        Consistently bet the same amount throughout the entire session. Safest
-        option.(Best for budget control)
-      </p>
-
-      <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/nav.css') }}"
-      />
+        <a href="/roulette-flat" class="strategy-card">
+          <div class="strategy-header">
+            <span class="strategy-name">Flat Bet</span>
+            <span class="risk-badge risk-low">Low Risk</span>
+          </div>
+          <p class="strategy-desc">Bet the same amount every spin. Consistent, predictable play that keeps your session going longer. Best for budget control.</p>
+          <span class="strategy-cta">Use Strategy &#8594;</span>
+        </a>
+      </div>
 
       <div class="nav">
         <a href="/">Home</a>

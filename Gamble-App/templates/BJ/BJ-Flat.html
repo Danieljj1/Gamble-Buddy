@@ -1,181 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flat Bet Blackjack</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackjack Flat Bet</title>
     <script src="{{ url_for('static', filename='js/gambleBuddy.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}" />
     <style>
-  :root{
-    /* Base colors */
-    --bg:#0c1117;
-    --panel:#141a22;
-    --text:#eef2f8;
-    --muted:#a6b0be;
-    --radius:16px;
-  }
-  html,body{height:100%}
-  body {
-     margin:0;
-    font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;
+      :root { --accent: #3CB872; }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <div class="page-header">
+        <h1 class="page-title">Flat Bet</h1>
+        <p class="page-subtitle">Blackjack &bull; Budget Calculator</p>
+      </div>
 
-    background:radial-gradient(circle at 50% 20%, #141a22 0%, var(--bg) 80%);
-    color:var(--text);
-    display:flex;
-    justify-content:center;
-  }
+      <div class="divider"></div>
 
-    .phone{
-    width:100%;
-    max-width:430px;
+      <div class="result-card">
+        <p class="result-label">Recommended flat bet</p>
+        <p class="result-value" id="flatBetResult">$0.00</p>
+      </div>
 
-    margin:0 auto;
-    padding:16px;
-    box-sizing:border-box;
-    }
+      <div class="pill-section">
+        <p class="section-label">Session length</p>
+        <div class="pill-group" id="time-group">
+          <button id="15min" class="pill-btn">15 min</button>
+          <button id="30min" class="pill-btn">30 min</button>
+          <button id="45min" class="pill-btn">45 min</button>
+          <button id="60min" class="pill-btn">60 min</button>
+        </div>
+      </div>
 
-    header{
-    margin:0;
-    padding-top:32px;
-    text-align:center;
-  }
-  header h1{
-    margin:0;
-    font-size:clamp(32px,7vw,48px);
-    letter-spacing:0.04em;
-    color:#b9e3b5;
-    font-weight:800;
-    text-transform:uppercase;
-  }
-  header h2{
-    color:#b9e3b5;
-  }
-  .rounded-btn {
-    padding: 16px 32px;          
-    border-radius: 12px;         
-    font-size: 1.5rem;           
-    font-weight: bold;          
-    border: none;                
-    cursor: pointer;             
-    background-color: #2e7d32;   
-    color: white;                
-    margin: 10px;               
-  }
-.rounded-btn-time {
-    padding: 8px 16px;          
-    border-radius: 12px;         
-    font-size: 0.75rem;           
-    font-weight: bold;          
-    border: none;                
-    cursor: pointer;             
-    background-color: #686968;   
-    color: white;                
-    margin: 8px;               
-  }
+      <div class="pill-section">
+        <p class="section-label">Budget</p>
+        <div class="pill-group" id="budget-group">
+          <button id="budget100"  class="pill-btn">$100</button>
+          <button id="budget200"  class="pill-btn">$200</button>
+          <button id="budget300"  class="pill-btn">$300</button>
+          <button id="budget400"  class="pill-btn">$400</button>
+          <button id="budget500"  class="pill-btn">$500</button>
+          <button id="budget600"  class="pill-btn">$600</button>
+          <button id="budget700"  class="pill-btn">$700</button>
+          <button id="budget800"  class="pill-btn">$800</button>
+          <button id="budget900"  class="pill-btn">$900</button>
+          <button id="budget1000" class="pill-btn">$1000</button>
+        </div>
+      </div>
 
-  .rounded-btn-budget {
-    padding: 6px 12px;          
-    border-radius: 12px;         
-    font-size: 0.75rem;           
-    font-weight: bold;          
-    border: none;                
-    cursor: pointer;             
-    background-color: #045204;   
-    color: white;                
-    margin: 3px;               
-  }
-
-  .rounded-btn:hover {
-    background-color: #256428;  
-  }
-  </style>
-</head>
-
-<body>
-     <div class="phone">
-    <header><h1>Flat Bet Blackjack!</h1></header>
-
-    <h2>Time frame</h2>
-    <p id="flatBetResult">Flat Bet: $0</p>
-
-        <button id="15min", class=" rounded-btn-time" >15 mins</button>
-    <button id="30min", class=" rounded-btn-time">30 mins</button>
-    <button id="45min", class=" rounded-btn-time">45 mins</button>
-    <button id="60min", class=" rounded-btn-time">60 mins</button>
-
-    <h2>Select Your Budget</h2>
-    <button id="budget100", class="rounded-btn-budget">$100</button>
-    <button id="budget200", class="rounded-btn-budget">$200</button>
-    <button id="budget300", class="rounded-btn-budget">$300</button>
-    <button id="budget400", class="rounded-btn-budget">$400</button>
-    <button id="budget500", class="rounded-btn-budget">$500</button>
-    <button id="budget600", class="rounded-btn-budget">$600</button>
-    <button id="budget700", class="rounded-btn-budget">$700</button>
-    <button id="budget800", class="rounded-btn-budget">$800</button>
-    <button id="budget900", class="rounded-btn-budget">$900</button>
-    <button id="budget1000", class="rounded-btn-budget">$1000</button>
-
-
-
-    <a href="/blackjack">Back</a>
-
-    <script>
-
-        // Saves Budget
-        function handleBudget(amount) {
-            updateBudget(amount);
-            displayFlatBet();
+      <script>
+        function setActive(groupId, activeId) {
+          document.querySelectorAll('#' + groupId + ' .pill-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.id === activeId);
+          });
         }
 
-        // Saves Hours
-        function handleHour(hours) {
-            updateHour(hours);
-            displayFlatBet();
+        function handleBudget(amount, id) {
+          updateBudget(amount);
+          setActive('budget-group', id);
+          displayFlatBet();
+        }
+
+        function handleHour(hours, id) {
+          updateHour(hours);
+          setActive('time-group', id);
+          displayFlatBet();
         }
 
         function displayFlatBet() {
-            const rate = bjRate();
-            document.getElementById('flatBetResult').innerText = `Flat Bet: $${rate.toFixed(2)}`;
+          const rate = bjRate();
+          document.getElementById('flatBetResult').textContent = '$' + rate.toFixed(2);
         }
 
-        // Event listeners for js
         document.addEventListener('DOMContentLoaded', () => {
-            // Budget buttons
-            document.getElementById('budget100').addEventListener('click', () => handleBudget(100));
-            document.getElementById('budget200').addEventListener('click', () => handleBudget(200));
-            document.getElementById('budget300').addEventListener('click', () => handleBudget(300));
-            document.getElementById('budget400').addEventListener('click', () => handleBudget(400));
-            document.getElementById('budget500').addEventListener('click', () => handleBudget(500));
-            document.getElementById('budget600').addEventListener('click', () => handleBudget(600));
-            document.getElementById('budget700').addEventListener('click', () => handleBudget(700));
-            document.getElementById('budget800').addEventListener('click', () => handleBudget(800));
-            document.getElementById('budget900').addEventListener('click', () => handleBudget(900));
-            document.getElementById('budget1000').addEventListener('click', () => handleBudget(1000));
+          document.getElementById('budget100').addEventListener('click',  () => handleBudget(100,  'budget100'));
+          document.getElementById('budget200').addEventListener('click',  () => handleBudget(200,  'budget200'));
+          document.getElementById('budget300').addEventListener('click',  () => handleBudget(300,  'budget300'));
+          document.getElementById('budget400').addEventListener('click',  () => handleBudget(400,  'budget400'));
+          document.getElementById('budget500').addEventListener('click',  () => handleBudget(500,  'budget500'));
+          document.getElementById('budget600').addEventListener('click',  () => handleBudget(600,  'budget600'));
+          document.getElementById('budget700').addEventListener('click',  () => handleBudget(700,  'budget700'));
+          document.getElementById('budget800').addEventListener('click',  () => handleBudget(800,  'budget800'));
+          document.getElementById('budget900').addEventListener('click',  () => handleBudget(900,  'budget900'));
+          document.getElementById('budget1000').addEventListener('click', () => handleBudget(1000, 'budget1000'));
 
-            // Hour buttons
-            document.getElementById('15min').addEventListener('click', () => handleHour(.25));
-            document.getElementById('30min').addEventListener('click', () => handleHour(.5));
-            document.getElementById('45min').addEventListener('click', () => handleHour(.75));
-            document.getElementById('60min').addEventListener('click', () => handleHour(1));
+          document.getElementById('15min').addEventListener('click', () => handleHour(0.25, '15min'));
+          document.getElementById('30min').addEventListener('click', () => handleHour(0.5,  '30min'));
+          document.getElementById('45min').addEventListener('click', () => handleHour(0.75, '45min'));
+          document.getElementById('60min').addEventListener('click', () => handleHour(1,    '60min'));
 
-            // Initial display
-            displayFlatBet();
+          displayFlatBet();
         });
-    </script>
+      </script>
 
-</style>
-
-<style>
-:root{ --accent:#b9e3b5; }
-</style>
-
-<div class="nav">
-  <a href="/blackjack">Back</a>
-  <a href="/">Home</a>
-</div>
-</div>
-</body>
-
+      <div class="nav">
+        <a href="/blackjack">Back</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </body>
 </html>
